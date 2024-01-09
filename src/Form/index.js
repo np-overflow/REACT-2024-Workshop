@@ -1,5 +1,6 @@
 import { useState } from "react"
 import "./Form.css"
+import {Link} from "react-router-dom"
 
 function Form() {
     const [name, setName] = useState("")
@@ -66,7 +67,15 @@ function Form() {
                         </label>
                     </div>
                 </div>
-                <button>Submit</button>
+
+                <button onClick={(e)=>{
+                    e.preventDefault()
+                    alert(`${name}, ${email}, ${course} , ${year} , ${isEnjoying} `)
+                }}> Check Information</button>
+
+                <Link to="/submitted">​
+                    <button>Submit</button>​
+                </Link>
             </form>
         </div>
     )
