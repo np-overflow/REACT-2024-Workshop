@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import "./Form.css"
 import {Link} from "react-router-dom"
 
@@ -8,6 +8,10 @@ function Form() {
     const [course, setCourse] = useState("")
     const [year, setYear] = useState("")
     const [isEnjoying, setIsEnjoying] = useState(null)
+
+    useEffect(() => {
+        console.log("Name has been changed:", name);
+    }, [name]);
 
     return (
         <div>
