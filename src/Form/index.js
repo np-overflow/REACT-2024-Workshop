@@ -1,13 +1,32 @@
-import { useState } from "react"
+import { useRef, useState, useReducer } from "react"
 import "./Form.css"
 import {Link} from "react-router-dom"
 
 function Form() {
     const [name, setName] = useState("")
-    const [email, setEmail] = useState("")
-    const [course, setCourse] = useState("")
-    const [year, setYear] = useState("")
+  
+    function reducer(state,action,inputValue){
+        if (action.type === "setCourse"){
+            return { 
+                course : action.payload,
+                email: state.email
+            
+            }
+        }
+        else if (action.type === "setEmail"){
+            return {
+                email : action.payload,
+                course: state.course
+            
+            }
+        }
+    }
+    const [state, dispatch] = useReducer(reducer , {course:"",name:""})
+
+    // const [year, setYear] = useState("")
     const [isEnjoying, setIsEnjoying] = useState(null)
+    
+    var yearRef = useRef(null)
 
     return (
         <div>
@@ -25,15 +44,19 @@ function Form() {
                     <input 
                         type="text"
                         id="email"
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
+                        onChange={(e) => {
+                            dispatch({ type: 'setEmail', payload: e.target.value });
+                          }}
+                        />
                 </div>
                 <div>
                     <label>Course: </label>
                     <input 
                         type="text"
                         id="course"
-                        onChange={(e) => setCourse(e.target.value)}
+                        onChange={(e) => {
+                            dispatch({ type: 'setCourse', payload: e.target.value });
+                          }}
                     />
                 </div>
                 <div>
@@ -41,7 +64,7 @@ function Form() {
                     <input 
                         type="number"
                         id="name"
-                        onChange={(e) => setYear(e.target.value)}
+                        ref={yearRef}
                     />
                 </div>  
                 <div>
@@ -51,8 +74,8 @@ function Form() {
                             <input
                             type="radio"
                             value="YESSSSSS"
-                            checked={isEnjoying === true}
-                            onChange={() => setIsEnjoying(true)}
+                            checked={isEnjoying === "Yes"}
+                            onChange={() => setIsEnjoying("Yes")}
                             />
                             Yes
                         </label>
@@ -60,8 +83,8 @@ function Form() {
                             <input
                             type="radio"
                             value="No :("
-                            checked={isEnjoying === false}
-                            onChange={() => setIsEnjoying(false)}
+                            checked={isEnjoying === "No"}
+                            onChange={() => setIsEnjoying("No")}
                             />
                             No
                         </label>
@@ -70,7 +93,7 @@ function Form() {
 
                 <button onClick={(e)=>{
                     e.preventDefault()
-                    alert(`${name}, ${email}, ${course} , ${year} , ${isEnjoying} `)
+                    alert(`${name}, ${state.email}, ${state.course} , ${yearRef.current.value} , ${isEnjoying} `)
                 }}> Check Information</button>
 
                 <Link to="/submitted">​

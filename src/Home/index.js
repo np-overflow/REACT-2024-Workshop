@@ -11,7 +11,7 @@ function Home() {
     setTimeout(()=>{
       animation.style.display = "None"
       form.style.display = "Block"
-  },1500)
+  },3000)
 
   }, []); // Empty dependency array means this effect runs once after the initial render
 

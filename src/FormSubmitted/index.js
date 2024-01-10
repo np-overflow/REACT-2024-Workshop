@@ -5,7 +5,7 @@ function FormSubmitted() {
   return (
     <div className="App">
       <h1>Form Submitted Successfully!</h1>
-      <Link to="/home">​
+      <Link to="/">​
         <button>Go Back</button>​
       </Link>
 
